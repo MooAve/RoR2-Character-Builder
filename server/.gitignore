@@ -1,0 +1,4 @@
+/node_modules
+/test_chars.json
+/test_items.json
+config.env
