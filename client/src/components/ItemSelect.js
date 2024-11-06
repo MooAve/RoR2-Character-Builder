@@ -43,11 +43,6 @@ export default function ItemSelect() {
     // Fetch a list of item names matching the provided filter
     async function getFilteredItems(type, val) {
 
-        // Return all items if a filter is empty
-        if (type === "" || val === "") {
-            return getItemOptions();
-        }
-
         const response = await fetch(`http://localhost:5000/items/filter/${type}/${val}`);
         if (response.status === 200) {
             console.log(`Successfully got response!`);
@@ -57,10 +52,38 @@ export default function ItemSelect() {
             return response.json();
     }
 
-    // Filters the items list using the provided filter
-    async function filterItems(type, val) {
+    // Retrieves a list of all item names that match both filters
+    async function getBothFilteredItems(category, rarity) {
 
-        const res = await getFilteredItems(type, val);
+        const response = await fetch(`http://localhost:5000/items/filter/both/${category}/${rarity}`);
+        if (response.status === 200) {
+            console.log(`Successfully got response!`);
+            } else {
+            console.log(response.status);
+            }
+            return response.json();
+    }
+
+    // Filters the items list using the provided filter
+    async function filterItems() {
+        const category = document.getElementById("category").value;
+        const rarity = document.getElementById("rarity").value;
+
+        if (category === "" && rarity === "") {
+            return getItemOptions();
+        } else if (category !== "" && rarity !== "") {
+            return getBothFilteredItems(category, rarity);
+        } else if (category !== "") {
+            return getFilteredItems("category", category);
+        } else {
+            return getFilteredItems("rarity", rarity);
+        }
+    }
+
+    // Populates the item select based on what filters are in place
+    async function populateFilteredOptions() {
+
+        const res = await filterItems();
 
         var new_options = [];
 
@@ -86,7 +109,7 @@ export default function ItemSelect() {
                 Filters:
             </h5>
             <label for="rarity">Rarity:</label>
-            <select id="rarity" onChange = {e => filterItems("rarity", e.target.value)}>
+            <select id="rarity" onChange = {() => populateFilteredOptions()}>
                 <option value = "">Any</option>
                 <option value = "common">Common</option>
                 <option value = "uncommon" style = {{backgroundColor: "#33ff57"}}>Uncommon</option>
@@ -95,8 +118,8 @@ export default function ItemSelect() {
                 <option value = "lunar" style = {{backgroundColor: "#1ebfff"}}>Lunar</option>
                 <option value = "void" style = {{backgroundColor: "#ec1bff"}}>Void</option>
             </select>
-            <label for="type">Category:</label>
-            <select id="type">
+            <label for="category">Category:</label>
+            <select id="category" onChange={e => populateFilteredOptions()}>
                 <option value = "">Any</option>
                 <option value = "damage" style = {{backgroundColor: "#ff5733"}}>Damage</option>
                 <option value = "healing" style = {{backgroundColor: "#8cff55"}}>Healing</option>

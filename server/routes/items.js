@@ -28,6 +28,20 @@ router.get("/filter/:type/:val", async (req, res) => {
     res.send(results).status(200);
 });
 
+//Retrieve and return a list of item names that match both filters
+router.get("/filter/both/:cat/:rar", async (req, res) => {
+    let cat = req.params.cat;
+    let rar = req.params.rar;
+
+    const options = {name: 1, _id: 0};
+
+    let collection = await db.collection('items');
+    
+    let results = await collection.find({category: cat, rarity: rar}).project(options).toArray();
+
+    res.send(results).status(200);
+});
+
 //Retrieve and return one specific item
 router.get("/:item", async (req, res) => {
     let item = req.params.item;
