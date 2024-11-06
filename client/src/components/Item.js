@@ -194,9 +194,9 @@ export default function Item({curCharacter}) {
         
         let new_stats = Object.create(curCharacter.stats);
 
-        new_stats.max_health += new_stats.health_per_level * (curCharacter.level - 1);
-        new_stats.health_regen += new_stats.regen_per_level * (curCharacter.level - 1);
-        new_stats.damage += new_stats.damage_per_level * (curCharacter.level - 1);
+        new_stats.max_health += new_stats.health_per_level * (curCharacter.stats.level - 1);
+        new_stats.health_regen += new_stats.regen_per_level * (curCharacter.stats.level - 1);
+        new_stats.damage += new_stats.damage_per_level * (curCharacter.stats.level - 1);
 
         for (const [key, val] of Object.entries(bonusStats)) {
             new_stats[key] += val;

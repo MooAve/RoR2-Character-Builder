@@ -6,24 +6,25 @@ export default function Character() {
 
     const [curCharacter, setCharacter] = useState({
         name: "",
-        level: 0,
         stats: {
-          armor: 0,
-          damage: 0,
-          damage_per_level: 0,
-          health_per_level: 0,
-          health_regen: 0,
-          max_health: 0,
-          regen_per_level: 0,
-          speed: 0
+            level: 0,
+            armor: 0,
+            damage: 0,
+            damage_per_level: 0,
+            health_per_level: 0,
+            health_regen: 0,
+            max_health: 0,
+            regen_per_level: 0,
+            speed: 0
       }
     });
 
     // Set the character's current level and update level-dependent stats
     function setLevel(level) {
-        let new_char = curCharacter;
 
-        new_char.level = level;
+        let new_char = Object.create(curCharacter);
+
+        new_char.stats.level = level;
         
         setCharacter(new_char);
     }

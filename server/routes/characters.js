@@ -21,7 +21,7 @@ router.get("/:character", async (req, res) => {
     let collection = await db.collection('characters');
     let results = await collection.find({name: character}).toArray();
 
-    results[0].level = 1;               // "level" attribute used by client
+    results[0].stats.level = 1;               // "level" attribute used by client
     res.send(results[0]).status(200);
 });
 

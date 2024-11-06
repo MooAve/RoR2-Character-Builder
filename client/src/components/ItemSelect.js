@@ -62,8 +62,6 @@ export default function ItemSelect() {
 
         const res = await getFilteredItems(type, val);
 
-        console.log(res);
-
         var new_options = [];
 
         for (let i = 0; i < res.length; i++) {
@@ -87,8 +85,8 @@ export default function ItemSelect() {
             <h5>
                 Filters:
             </h5>
+            <label for="rarity">Rarity:</label>
             <select id="rarity" onChange = {e => filterItems("rarity", e.target.value)}>
-                Rarity:
                 <option value = "">Any</option>
                 <option value = "common">Common</option>
                 <option value = "uncommon" style = {{backgroundColor: "#33ff57"}}>Uncommon</option>
@@ -97,8 +95,8 @@ export default function ItemSelect() {
                 <option value = "lunar" style = {{backgroundColor: "#1ebfff"}}>Lunar</option>
                 <option value = "void" style = {{backgroundColor: "#ec1bff"}}>Void</option>
             </select>
+            <label for="type">Category:</label>
             <select id="type">
-                Type:
                 <option value = "">Any</option>
                 <option value = "damage" style = {{backgroundColor: "#ff5733"}}>Damage</option>
                 <option value = "healing" style = {{backgroundColor: "#8cff55"}}>Healing</option>

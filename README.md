@@ -10,7 +10,6 @@ follows their respective schema.
 
 TODO:
  - Make UI nicer
- - Have stats update properly when the character's level is changed
  - Add proper calculations for items that don't scale linearly
  - Add item and character schemas
  - Add stat totals (e.g. total crit chance)
