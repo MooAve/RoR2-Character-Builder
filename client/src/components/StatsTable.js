@@ -2,7 +2,7 @@
 export default function StatsTable({stats}) {
 
     return (
-        <table id = "char_stats">
+        <table id = "char_stats" border = "2px">
             <thead align = "left">
                 Base Stats
             </thead>

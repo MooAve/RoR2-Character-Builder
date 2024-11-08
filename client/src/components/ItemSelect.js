@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function ItemSelect() {
+export default function ItemSelect({PickButton}) {
 
     const[options, setOptions] = useState([]);
 
@@ -105,6 +105,7 @@ export default function ItemSelect() {
                 <option value = "">Please choose an item</option>
                 {options}
             </select>
+            < PickButton />
             <h5>
                 Filters:
             </h5>

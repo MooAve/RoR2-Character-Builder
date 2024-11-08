@@ -180,6 +180,7 @@ export default function Item({curCharacter}) {
         }
     }
 
+    // Removes the effect elements corresponding to the provided item
     function removeEffect(item) {
 
         if (item.effects.length > 0) {
@@ -205,6 +206,12 @@ export default function Item({curCharacter}) {
         return new_stats;
     }
 
+    function ItemSelectButton() {
+        return (
+            <button onClick = {() => pickItem(document.getElementById("item_select").value)}> Add </button>
+        )
+    }
+
     var stats;
 
     if (curCharacter.name === "") {
@@ -215,19 +222,21 @@ export default function Item({curCharacter}) {
 
     return (
         <div>
-            <h4>Choose an Item:</h4>
-
-            < ItemSelect />
-            <button onClick = {() => pickItem(document.getElementById("item_select").value)}> Add </button>
-
             <>{stats}</>
 
+            <h4>Choose an Item:</h4>
+
+            < ItemSelect PickButton = {ItemSelectButton}/>
+            
             <table id = "cur_items">
                 <thead>
                     Current Items: 
                 </thead>
                 <tbody>{ItemEls}</tbody>
             </table>
+            <h3>
+                Item Effects:
+            </h3>
             < ItemEffects curItems = {items} />
         </div>
     )
