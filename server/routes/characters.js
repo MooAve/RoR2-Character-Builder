@@ -25,4 +25,25 @@ router.get("/:character", async (req, res) => {
     res.send(results[0]).status(200);
 });
 
+router.post("/", async (req, res) => {
+
+    let collection = await db.collection('characters');
+    console.log(req.body.name);
+    await collection.insertOne({
+        name: req.body.name,
+        stats: {
+            armor: req.body.armor,
+            damage: req.body.damage,
+            damage_per_level: req.body.damage_per_level,
+            health_per_level: req.body.health_per_level,
+            health_regen: req.body.regen_per_level,
+            max_health: req.body.max_health,
+            regen_per_level: req.body.regen_per_level,
+            speed: req.body.speed
+        }
+    });
+
+    res.send("Wow!").status(200);
+});
+
 export default router;

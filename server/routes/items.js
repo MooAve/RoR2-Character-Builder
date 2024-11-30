@@ -52,4 +52,19 @@ router.get("/:item", async (req, res) => {
     res.send(results[0]).status(200);
 });
 
+router.post("/", async (req, res) => {
+
+    let collection = await db.collection('items');
+    await collection.insertOne({
+        name: req.body.name,
+        rarity: req.body.rarity,
+        category: req.body.category,
+        stats: req.body.stats,
+        effects: req.body.effects
+    });
+
+    res.send("Wow!").status(200);
+});
+
+
 export default router;

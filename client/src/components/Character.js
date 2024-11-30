@@ -70,7 +70,7 @@ export default function Character() {
             < CharacterSelect setCharacter = {pickCharacter} />
 
             <h4> Set Level: </h4>
-            <input id="level_input" onBlur={e => setLevel(e.target.value)}></input>
+            <input id="level_input" defaultValue={1} onBlur={e => setLevel(e.target.value)}></input>
 
             <>{item}</>
         </ div>

@@ -7,23 +7,39 @@ export default function Item({curCharacter}) {
 
     const [items, setItems] = useState([]);
     const [ItemEls, setItemEls] = useState([]);
-    const [bonusStats, setBonusStats] = useState({
+    const [baseStats, setbaseStats] = useState({
         armor: 0,
         damage: 0,
         health_regen: 0,
         max_health: 0,
-        speed: 0
+        speed: 0,
+        attack_speed: 0,
+        crit_chance: 0,
+        move_speed: 0
     });
 
     // Update the character's stats with the given item's bonuses
     function updateStats(item, old_quantity) {
-        let new_stats = bonusStats;
+        let new_stats = baseStats;
 
         for (const [key, val] of Object.entries(item.stats)) {
-            new_stats[key] = new_stats[key] + (val * (item.quantity - old_quantity));
+            
+            if (Array.isArray(val))
+            {
+                // Use when the amount gained per-stack is different from the base value
+                if (item.quantity === 0)
+                {
+                    new_stats[key] = new_stats[key] - val[0] + (val[1] * ((item.quantity - 1) - old_quantity));
+                } else {
+                    new_stats[key] = new_stats[key] + val[0] + (val[1] * ((item.quantity - 1) - old_quantity));
+                }
+                
+            } else {
+                new_stats[key] = new_stats[key] + (val * (item.quantity - old_quantity));
+            }
         }
 
-        setBonusStats(new_stats);
+        setbaseStats(new_stats);
     }
 
     // Get a specific item from the database
@@ -127,7 +143,7 @@ export default function Item({curCharacter}) {
               { value }
             </td>
             <td>
-              <input id = {value} onBlur = {e => setQuantity(e.target.id, e.target.value)}>
+              <input id = {value} defaultValue = {1} onBlur = {e => setQuantity(e.target.id, e.target.value)}>
               </input>
             </td>
             <td>
@@ -199,8 +215,12 @@ export default function Item({curCharacter}) {
         new_stats.health_regen += new_stats.regen_per_level * (curCharacter.stats.level - 1);
         new_stats.damage += new_stats.damage_per_level * (curCharacter.stats.level - 1);
 
-        for (const [key, val] of Object.entries(bonusStats)) {
-            new_stats[key] += val;
+        for (const [key, val] of Object.entries(baseStats)) {
+            if (isNaN(new_stats[key])) {
+                new_stats[key] = val;
+            } else {
+                new_stats[key] += val;
+            }
         }
 
         return new_stats;

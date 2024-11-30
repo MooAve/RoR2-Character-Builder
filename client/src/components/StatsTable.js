@@ -23,6 +23,20 @@ export default function StatsTable({stats}) {
                 Armor: {stats.armor}
                 </td></tr>
             </tbody>
+            <thead align = "left">
+                Bonus Stats
+            </thead>
+            <tbody>
+                <tr><td>
+                Crit Chance: {`+${stats.crit_chance}%`}
+                </td></tr>
+                <tr><td>
+                Attack Speed: {`+${stats.attack_speed}%`}
+                </td></tr>
+                <tr><td>
+                Move Speed: {`+${stats.move_speed}%`}
+                </td></tr>
+            </tbody>
         </table>
     );
 }

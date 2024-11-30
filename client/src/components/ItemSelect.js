@@ -33,9 +33,9 @@ export default function ItemSelect({PickButton}) {
     async function getItemOptions() {
         const response = await fetch (`http://localhost:5000/items/`);
         if (response.status === 200) {
-        console.log(`Successfully got response!`);
+            console.log(`Successfully got response!`);
         } else {
-        console.log(response.status);
+            console.log(response.status);
         }
         return response.json();
     } 
@@ -109,7 +109,7 @@ export default function ItemSelect({PickButton}) {
             <h5>
                 Filters:
             </h5>
-            <label for="rarity">Rarity:</label>
+            <label htmlFor="rarity">Rarity:</label>
             <select id="rarity" onChange = {() => populateFilteredOptions()}>
                 <option value = "">Any</option>
                 <option value = "common">Common</option>
@@ -119,7 +119,7 @@ export default function ItemSelect({PickButton}) {
                 <option value = "lunar" style = {{backgroundColor: "#1ebfff"}}>Lunar</option>
                 <option value = "void" style = {{backgroundColor: "#ec1bff"}}>Void</option>
             </select>
-            <label for="category">Category:</label>
+            <label htmlFor="category">Category:</label>
             <select id="category" onChange={e => populateFilteredOptions()}>
                 <option value = "">Any</option>
                 <option value = "damage" style = {{backgroundColor: "#ff5733"}}>Damage</option>
